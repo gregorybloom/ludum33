@@ -38,12 +38,14 @@ GAMESOUNDS.loadSounds = function(context) {
   loader.load();
 };
 GAMESOUNDS.makeSource = function(type,vol) {
+  if(GAMEMUSIC.mute)    return;
   var source = GAMESOUNDS.audioContext.createBufferSource();
   var compressor = GAMESOUNDS.audioContext.createDynamicsCompressor();
   var gain = GAMESOUNDS.audioContext.createGain();
   var v = vol* GAMEMUSIC.volume *1.45;
   if(v > 1) v=1;
   gain.gain.value = v;
+  if(GAMESOUNDS.buffers==null)    return null;
   source.buffer = GAMESOUNDS.buffers[type];
   source.connect(gain);
   gain.connect(compressor);

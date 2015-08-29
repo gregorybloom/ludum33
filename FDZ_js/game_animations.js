@@ -102,7 +102,7 @@ GAMEANIMATIONS.getNewAnimationFrame = function(collNum, seqNum, frameNum, startT
 	if(  typeof this.collections[ collNum ].sequenceSet[ seqNum ].frameSet === "undefined")		return;
 	
 	var sequence = this.collections[ collNum ].sequenceSet[ seqNum ];
-	
+
 	var currTime = GAMEMODEL.gameClock.elapsedMS();
 	var ticksDiff = currTime - startTime;
 	
@@ -113,6 +113,7 @@ GAMEANIMATIONS.getNewAnimationFrame = function(collNum, seqNum, frameNum, startT
 
 	var frameCount = 0;
 	var currFrame;
+
 	while( ticksLeft > 0 )
 	{
 		if(  frameCount >= sequence.frameSet.length  )

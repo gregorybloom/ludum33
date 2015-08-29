@@ -1,12 +1,15 @@
 
 GAMESOUNDS.load = function(context) {
-  this.gameSFX = ['sounds/effects/m4a1.mp3',
-                                'sounds/effects/m1-garand.mp3',
-                                'sounds/effects/LttP/LTTP_Enemy_Skitter.wav',
-                                'sounds/effects/LttP/LTTP_Link_Push.wav',
-                                'sounds/effects/LttP/LTTP_BallAndChain.wav',
-                                'sounds/effects/LttP/LTTP_Enemy_Hit.wav',
-                                'sounds/effects/LttP/LTTP_Link_Hurt.wav'];
+  this.gameSFX = ['sounds/effects/SFX/monster_change_medium_to_fast.ogg',
+                          'sounds/effects/SFX/monster_change_slow_to_medium.ogg',
+                          'sounds/effects/SFX/monster_full_throttle_A.ogg',
+                          'sounds/effects/SFX/monster_full_throttle_B.ogg',
+                          'sounds/effects/SFX/monster_rev_burst.ogg',
+                          'sounds/effects/SFX/monster_speed_fast.ogg',
+                          'sounds/effects/SFX/monster_speed_idle.ogg',
+                          'sounds/effects/SFX/monster_speed_medium.ogg',
+                          'sounds/effects/SFX/monster_speed_slow_A.ogg',
+                          'sounds/effects/SFX/monster_speed_slow_B.ogg'];
 };
 GAMEMUSIC.load = function(domain) {
   this.gameSongs[0] = "music/07_from_the_legend_of_zelda_-_triforce_of_the_gods_hyrule_castle.mp3";
@@ -14,113 +17,66 @@ GAMEMUSIC.load = function(domain) {
 };
 GAMEVIEW.loadTextures = function()
 {
-    this.loadImg(10, "images/Link.png");
-    this.loadImg(11, "images/monsters.png");
-//  this.loadImg(12, "images/tinyset-landtiles.png");
-    this.loadImg(13, "images/tinyset-landtiles-buf.png");
+    this.loadImg(0, "images/car/tire_map.png");
+    this.loadImg(1, "images/car/monster_red2.png");
+
+    this.loadImg(2, "images/ITEMS/barrel.png");
+    this.loadImg(3, "images/ITEMS/cinder_block.png");
+    this.loadImg(4, "images/ITEMS/oil_spill.png");
+
+    this.loadImg(10, "images/foreground_large.png");
+    this.loadImg(11, "images/foreground1.png");
+    this.loadImg(12, "images/background_large.png");
+    this.loadImg(13, "images/background.png");
+
+    this.loadImg(30, "images/OBJECTS/car_new_aston.png");
+    this.loadImg(31, "images/OBJECTS/car_half_crushed_aston.png");
+    this.loadImg(32, "images/OBJECTS/car_fully_crushed_aston.png");
+    this.loadImg(33, "images/OBJECTS/car_new_truck.png");
+    this.loadImg(34, "images/OBJECTS/car_half_crushed_truck.png");
+    this.loadImg(35, "images/OBJECTS/car_fully_crushed_truck.png");
+    this.loadImg(36, "images/OBJECTS/car_new_beetle.png");
+    this.loadImg(37, "images/OBJECTS/car_half_crushed_beetle.png");
+    this.loadImg(38, "images/OBJECTS/car_fully_crushed_beetle.png");
+    this.loadImg(39, "images/OBJECTS/car_new_police.png");
+    this.loadImg(40, "images/OBJECTS/car_half_crushed_police.png");
+    this.loadImg(41, "images/OBJECTS/car_fully_crushed_police.png");
+
 
     return true;
 };
 GAMEANIMATIONS.loadTextureFrames = function()
 {
+//  GAMEANIMATIONS.loadTextureFrameFromGrid = function(imgNum, size, xmax, ymax, w, h, imgW, imgH, keyPt, pixelBuffer)
     var X;  var Y;  var W;  var H;  var keypt = {};
 
-    this.loadTextureFrameFromGrid(10,  21+15+12,  21,1,  24,32,  504,104, {x:12,y:14}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(0,  24,  24,1,  116,116,  116*24,116, {x:58,y:58}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(1,  1,  1,1,  375,375,  375,375, {x:188,y:150}, {x:0,y:0});
+
+    this.loadTextureFrameFromGrid(2,  1,  1,1,  96,163,  96,163, {x:48,y:81.5}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(3,  1,  1,1,  250,250,  250,250, {x:125,y:125}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(4,  1,  1,1,  150,150,  150,150, {x:75,y:75}, {x:0,y:0});
+
+    this.loadTextureFrameFromGrid(10,  Math.ceil((16000/25)*(1575/25)),  (16000/25),(1575/25),  25,25,  16000,1575, {x:12.5,y:12.5}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(11,  Math.ceil((4000/25)*(400/40)),  (4000/25),Math.ceil(400/40),  25,40,  4000,400, {x:12.5,y:20}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(12,  Math.ceil((16000/25)*(705/25)),  (16000/25),(1575/25),  25,25,  16000,1575, {x:12.5,y:12.5}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(13,  Math.ceil((4000/25)*(176/16)),  (4000/25),(176/16),  25,16,  4000,176, {x:12.5,y:8}, {x:0,y:0});
+
+    this.loadTextureFrameFromGrid(30,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(31,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(32,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(33,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(34,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(35,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(36,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(37,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(38,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(39,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(40,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
+    this.loadTextureFrameFromGrid(41,  1,  1,1,  300,150,  300,150, {x:150,y:75}, {x:0,y:0});
 
     var frame;
-    for(var a=0; a<15; a++)
-    {
-        frame = ImageFrame.alloc();
-        X = 32*a;
-        Y = 32;
-        W = 32;
-        H = 32;
-        if(a == 5)  W = 40;
-        if(a > 5)   X = 32*a + 8;
-        switch(a)
-        {
-            case 0:
-                keypt = {x:17,y:14};
-                break;
-            case 1:
-                keypt = {x:17,y:15.5};
-                break;
-            case 2:
-                keypt = {x:17,y:17};
-                break;
-            case 3:
-                keypt = {x:17,y:18};
-                break;
-            case 4:
-                keypt = {x:17,y:16.5};
-                break;
-            case 5:
-                keypt = {x:23,y:16.5};
-                break;
 
-            case 10:
-                keypt = {x:18.5,y:14};
-                break;
-            case 11:
-                keypt = {x:20,y:14};
-                break;
-            case 13:
-                keypt = {x:18,y:15};
-                break;
-            case 14:
-                keypt = {x:16.5,y:16.5};
-                break;
-            default:
-                if(a < 6)
-                {
-                    keypt = {x:17,y:16};
-                }
-                else
-                {
-                    keypt = {x:18,y:14};
-                }
-                break;
-        }
-        
-        frame.setImageFrame(X,Y,W,H,504,104,keypt);
-        this.imageSets[10].addFrame(frame, a+21);
-    }
-    for(var b=0; b<12; b++)
-    {
-        frame = ImageFrame.alloc();
-        X = 32*b;
-        Y = 64;
-        W = 32;
-        H = 40;
-        switch(b)
-        {
-            case 7:
-                keypt = {x:15.5,y:17};
-                break;
-            case 8:
-                keypt = {x:14,y:17};
-                break;
-            default:
-                if(b < 7)
-                {
-                    keypt = {x:16,y:17};
-                }
-                else
-                {
-                    keypt = {x:8,y:16};
-                }
-                break;
-        }
-        
-        frame.setImageFrame(X,Y,W,H,504,104,keypt);
-        this.imageSets[10].addFrame(frame, b+21+15);
-    }
-    
-    this.loadTextureFrameFromGrid(11,  10*4,   10,4,    32,32,   10*32,4*32,   {x:16,y:16},   {x:0,y:0});
-    this.imageSets[11].frameSet[12].baseKeypt = {x:16,y:18};
-    this.loadTextureFrameFromGrid(12,  4*2,   4,2,    16,16,   4*16,2*16,   {x:8,y:8},   {x:0,y:0});
-    this.loadTextureFrameFromGrid(13,  4*2,   4,2,    16,16,   4*(16+2),2*(16+2),   {x:8,y:8},   {x:1,y:1});
-    
 /*
     loadTextureFrameFromGrid(int imgNum, int size, int xmax, int ymax, int w, int h, int imgW, int imgH, Vector2D keypoint, Vector2D pixelBuffer);
     addToTextureFrameFromGrid(int imgNum, int start, int end, int xstart, int xmax, int ystart, int ymax, int w, int h, int imgW, int imgH, Vector2D pixelBuffer);
@@ -130,23 +86,45 @@ GAMEANIMATIONS.loadTextureFrames = function()
 GAMEANIMATIONS.loadAnimations = function()
 {
     this.collections[0] = AnimationCollection.alloc();
+    this.collections[10] = AnimationCollection.alloc();
+    this.collections[11] = AnimationCollection.alloc();
+    this.collections[20] = AnimationCollection.alloc();
+    this.collections[21] = AnimationCollection.alloc();
+    this.collections[22] = AnimationCollection.alloc();
+    this.collections[23] = AnimationCollection.alloc();
+    this.collections[30] = AnimationCollection.alloc();
 /*
     loadSequenceForCollection(int collNum,   int SeqNum, int frameCount, 
       int imgNum, int ticksPerFrame,   int imgFrameStart, int imgFrameStep=1, Vector2D scale ); 
 /**/
-    this.loadSequenceForCollection(0,  0,1,  11,  600,  1,1, {w:1,h:1});
-    this.loadSequenceForCollection(0,  1,1,  11,  600,  2,1, {w:1,h:1});
-    this.loadSequenceForCollection(0,  2,1,  11,  600,  0,1, {w:1,h:1});
-    this.loadSequenceForCollection(0,  3,1,  11,  600,  2,1, {w:1,h:1});
+    this.loadSequenceForCollection(10,  0,1,  1,  600,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(10,  1,24,  0,  45,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(10,  2,24,  0,  30,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(10,  3,24,  0,  15,  0,1, {w:0.5,h:0.5});
 
-    this.loadSequenceForCollection(0,  4,2,  11,  80,  4,1, {w:1,h:1});
-        this.collections[0].sequenceSet[4].frameSet[1].imgFrameNum = 1;
-    this.loadSequenceForCollection(0,  5,2,  11,  80,  5,1, {w:1,h:1});
-        this.collections[0].sequenceSet[5].frameSet[1].imgFrameNum = 2;
-    this.loadSequenceForCollection(0,  6,2,  11,  80,  3,1, {w:1,h:1});
-        this.collections[0].sequenceSet[6].frameSet[1].imgFrameNum = 0;
-    this.loadSequenceForCollection(0,  7,2,  11,  80,  5,1, {w:1,h:1});
-        this.collections[0].sequenceSet[7].frameSet[1].imgFrameNum = 2;
+    this.loadSequenceForCollection(11,  0,1,  2,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(11,  1,1,  3,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(11,  2,1,  4,  6000000,  0,1, {w:1,h:0.5});
+
+    this.loadSequenceForCollection(20,  0,Math.ceil((16000/25)*(1575/25)),  10,  6000000,  0,1, {w:1,h:1});
+    this.loadSequenceForCollection(21,  0,Math.ceil((4000/25)*(400/40)),  11,  6000000,  0,1, {w:1,h:1});
+    this.loadSequenceForCollection(22,  0,Math.ceil((16000/25)*(705/25)),  12,  6000000,  0,1, {w:1,h:1});
+    this.loadSequenceForCollection(23,  0,Math.ceil((4000/25)*(176/16)),  13,  6000000,  0,1, {w:1,h:1});
+
+    this.loadSequenceForCollection(30,  0,1,  30,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  1,1,  31,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  2,1,  32,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  3,1,  33,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  4,1,  34,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  5,1,  35,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  6,1,  36,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  7,1,  37,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  8,1,  38,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  9,1,  39,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  10,1,  40,  6000000,  0,1, {w:0.5,h:0.5});
+    this.loadSequenceForCollection(30,  11,1,  41,  6000000,  0,1, {w:0.5,h:0.5});
+/**/
+/*
 
     this.loadSequenceForCollection(0,  8,3,  11,  240,  1,1, {w:1,h:1});
         this.collections[0].sequenceSet[8].frameSet[1].imgFrameNum = 4;
@@ -191,7 +169,7 @@ GAMEANIMATIONS.loadAnimations = function()
     this.loadSequenceForCollection(3,  9,9,  10,  75,  27,1, {w:1,h:1});
     this.loadSequenceForCollection(3,  10,6,  10,  100,  21,1, {w:1,h:1});
     this.loadSequenceForCollection(3,  11,9,  10,  75,  27,1, {w:1,h:1});
-    
+    /**/
     return true;
 };
 

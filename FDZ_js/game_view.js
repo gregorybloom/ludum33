@@ -277,10 +277,10 @@ GAMEVIEW.drawFromAnimationFrame = function(frame, absPosition, vShift, drawPt, d
 	drawSize.h = Math.abs(drawSize.h);
 	
 	var drawBox = {w:drawSize.w,h:drawSize.h};
-	drawBox.x = absPosition.x - imgFrame.baseKeypt.x;
-	drawBox.y = absPosition.y - imgFrame.baseKeypt.y;
+	drawBox.x = absPosition.x - imgFrame.baseKeypt.x*frame.scale.w;
+	drawBox.y = absPosition.y - imgFrame.baseKeypt.y*frame.scale.h;
 	
-	if( !GAMEVIEW.BoxIsInCamera(drawBox, vShift) )		return;
+//	if( !GAMEVIEW.BoxIsInCamera(drawBox, vShift) )		return;
 	
 		
 	// convert to screen values
@@ -290,8 +290,8 @@ GAMEVIEW.drawFromAnimationFrame = function(frame, absPosition, vShift, drawPt, d
 	
 	if(typeof vShift === "undefined")	vShift = null;
 	if(vShift == null)			vShift = {x:0,y:0};
-	vShift.x -= imgFrame.baseKeypt.x;
-	vShift.y -= imgFrame.baseKeypt.y;
+	vShift.x -= imgFrame.baseKeypt.x*frame.scale.w;
+	vShift.y -= imgFrame.baseKeypt.y*frame.scale.h;
 	
 	var drawPos = GAMEVIEW.PtToDrawCoords(absPosition, vShift);
 	

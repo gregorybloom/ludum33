@@ -9,6 +9,7 @@ GAMEMUSIC={
   musicSource: null,
   playing: false,
   musicOn: false,
+  mute: false,
   volume: 0.35,
 
   gameSongs:[],

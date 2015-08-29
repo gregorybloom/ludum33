@@ -19,6 +19,8 @@ Actor.prototype.init = function() {
 	this.alive = true;
 	this.size = {w:0,h:0};
 
+	this.parent = null;
+
 	this.baseOffset = {x:0.5,y:0.5};
 	this.anchorOffset = {x:0.5,y:0.5};
 
@@ -36,6 +38,7 @@ Actor.prototype.init = function() {
 	this.ticksDiff = 0;
 	
 	this.animateModule = null;
+	this.ranID = Math.floor(Math.random()*10000);
 };
 
 
@@ -77,6 +80,8 @@ Actor.prototype.playSound = function(type,vol,rate) {
 		this.playingSounds[type]={};
 
 		var source = GAMESOUNDS.makeSource(type,vol);
+		if(source == null)		delete this.playingSounds[type];
+		if(source == null)		return;
 		source.playbackRate.value = rate;
 		this.playingSounds[type].source = source;
 		this.playingSounds[type].time = GAMEMODEL.gameClock.elapsedMS();
@@ -93,7 +98,16 @@ Actor.prototype.playSound = function(type,vol,rate) {
 
 
 Actor.prototype.getAbsoluteShift = function() {
-	return {x:0,y:0};
+	var absShift = null;
+	if(this.parent instanceof Actor)	absShift = this.parent.getAbsoluteShift();
+	else 								absShift = {x:0,y:0};
+
+	absShift.x += (this.anchorOffset.x-this.baseOffset.x) * this.size.w;
+	absShift.y += (this.anchorOffset.y-this.baseOffset.y) * this.size.h;
+	absShift.x += this.position.x;
+	absShift.y += this.position.y;
+
+	return absShift;
 };
 Actor.prototype.shiftPosition = function(shiftPos) {
 	var P = {x:0,y:0};
@@ -115,9 +129,15 @@ Actor.prototype.updatePosition = function(newPos) {
 	this.box.w = this.size.w;
 	this.box.h = this.size.h;
 	
-	var absShift = this.getAbsoluteShift();
-	this.absPosition.x = newPos.x + absShift.x;
-	this.absPosition.y = newPos.y + absShift.y;
+	if(this.parent instanceof Actor) {
+		var absShift = this.parent.getAbsoluteShift();
+		this.absPosition.x = newPos.x + absShift.x;
+		this.absPosition.y = newPos.y + absShift.y;
+	} else {
+		this.absPosition.x = newPos.x;
+		this.absPosition.y = newPos.y;		
+	}
+
 	this.absBox.x = this.absPosition.x - offset.x;
 	this.absBox.y = this.absPosition.y - offset.y;
 	this.absBox.w = this.size.w;

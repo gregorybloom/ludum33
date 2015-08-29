@@ -10,8 +10,8 @@ WorldActor.prototype.init = function() {
 	Actor.prototype.init.call(this);
 	
 	this.gamePlayer = null;
-	this.gameArtbits = {};
-	this.gameActors = {};
+	this.gameArtbits = [];
+	this.gameActors = [];
 
 	this.updatePosition(0,0);
 
@@ -29,7 +29,7 @@ WorldActor.prototype.clear = function() {
 	for(var i in this.gameActors)
 	{
                 this.gameActors[i].clear();
-                delete this.gameActors[i];
+                this.gameActors.splice(i,1);
 	}
 	for(var i in this.gameArtbits)
 	{
@@ -54,11 +54,7 @@ WorldActor.prototype.load = function() {
 WorldActor.prototype.addActor = function(act,type) {
     var c=0;
     if(type === "act") {
-        for(var i in this.gameActors)  {
-            if(this.gameActors[i] != null && typeof this.gameActors[i] !== "undefined" )    c+=1;
-            else                break;
-        }
-        this.gameActors[c]=act;
+        this.gameActors.push(act);
     }
     else if(type === "art") {
         for(var i in this.gameArtbits)  {
@@ -131,7 +127,7 @@ WorldActor.prototype.distributeInput = function(kInput)
         used = used | this.readInput(kInput);
         
         
-        if(this.gamePlayer != null && !used)	this.gamePlayer.readInput(kInput);
+        if(this.gamePlayer != null && !used)	used = used | this.gamePlayer.readInput(kInput);
         return used;
 };
 

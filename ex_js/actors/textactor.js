@@ -3,28 +3,26 @@ function TextActor() {
 }
 TextActor.prototype = new Actor;
 TextActor.prototype.identity = function() {
-	return ('TextActor (' +this._dom.id+ ')');
+	return ('TextActor ()');
 };
 
 TextActor.prototype.init = function() {
 	Actor.prototype.init.call(this);
 	
-	this.sizeH = 0;
-	this.sizeW = 0;
-	
+	this.size={w:1,h:1};	
 	this.text = "";
 			
-	this.fontSize = 28;
+	this.fontSize = 24;
 	this.fontCenter = false;
 	
 	this.startTime = 0;
 	this.lifeTime = 3000;
 };
 
-TextActor.prototype.setFloatText = function(_txt,_X,_Y,life,fsize) {
+TextActor.prototype.setFloatText = function(_txt,_pos,life,fsize) {
 	this.text = _txt;
 
-	this.updatePosition(_X,_Y);
+	this.updatePosition(_pos);
 	
 	this.lifeTime = life;
 	this.fontSize = fsize;
@@ -32,8 +30,9 @@ TextActor.prototype.setFloatText = function(_txt,_X,_Y,life,fsize) {
 };
 TextActor.prototype.update = function() {
 	Actor.prototype.update.call(this);
+	this.updatePosition();
 	
-	if(this.startTime == 0)		this.startTime = GAMEMODEL.getTime();		
+	if(this.startTime == 0)		this.startTime = GAMEMODEL.gameClock.elapsedMS();		
 };
 
 TextActor.prototype.draw = function() {
@@ -45,8 +44,7 @@ TextActor.prototype.draw = function() {
         GAMEVIEW.drawModifiers.color = "#0099FF";
 
         var font = this.fontSize + "pt Arial";
-        GAMEVIEW.drawText({x:this.posX,y:this.posY}, this.text, font, this.fontCenter, true);
-
+		GAMEVIEW.drawText(this.absPosition, this.text, font,"#000000");
 
 	GAMEVIEW.context.globalAlpha=1.0;
 	GAMEVIEW.clearDrawMods();

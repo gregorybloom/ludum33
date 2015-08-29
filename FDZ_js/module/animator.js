@@ -18,15 +18,16 @@ AnimationModule.prototype.init = function() {
 /**/	
 	this.animates = false;
 	this.drawCollection = -1;
-	this.currentSequence = 0;
+	this.currentSequence = -1;
 	this.currentFrame = 0;
 	
 	this.animStartTime = GAMEMODEL.gameClock.elapsedMS();
 	this.animFinished = true;
-	this.animRepeats = false;
+	this.animRepeats = true;
 	
 	this.target = null;
 	this.filter = null;
+	this.drawShift = {x:0,y:0};
 };
 
 AnimationModule.prototype.draw = function() {
@@ -38,13 +39,14 @@ AnimationModule.prototype.draw = function() {
 		
 		var frame = GAMEANIMATIONS.getAnimationFrame(this.drawCollection, this.currentSequence, this.currentFrame);
 //					if(this.drawCollection == 0)		console.log(frame.imgFrameNum);
-		GAMEVIEW.drawFromAnimationFrame( frame, this.target.absPosition, {x:0,y:0}, pointC, 0, null );
+		GAMEVIEW.drawFromAnimationFrame( frame, this.target.absPosition, {x:this.drawShift.x,y:this.drawShift.y}, pointC, 0, null );
 		
 /*		GAMEVIEW.drawFromAnimationFrame( frame, this.target.absPosition, {x:0,y:0}, this.target.absBox.ptC, this.target.drawLayer, null );
 /**/
 	}
 };
 AnimationModule.prototype.update = function() {
+
 	this.updateCurrentAnimation();
 	
 	if(this.animates != false && this.drawCollection >= 0)
@@ -65,7 +67,8 @@ AnimationModule.prototype.update = function() {
 	}
 };
 AnimationModule.prototype.changeToAnimation = function(sequence, repeat) {
-	repeat = typeof repeat !== 'undefined' ? repeat : false;
+	if(typeof repeat === 'undefined' || repeat == null)		repeat = false;
+
 	if( this.currentSequence != sequence )
 	{
 		this.currentSequence = sequence;
